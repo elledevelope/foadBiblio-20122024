@@ -3,33 +3,41 @@
 {% block title %}Liste des livres{% endblock %}
 
 {% block body %}
-    {# category filter #}
-    <section style="width:60%; margin:auto; margin-top: 50px; margin-bottom: 50px">
-        <form method="GET" action="{{ path('app_livre_index') }}" style="margin-bottom: 20px;">
-            <label for="categoryFilter">Choisir une catégorie :</label>
-            <select name="category" id="categoryFilter" onchange="this.form.submit()">
-                <option value="">Toutes les catégories</option>
-                {% for category in categories %}
-                    <option value="{{ category.id }}" {% if category.id == app.request.get('category') %}selected{% endif %}>{{ category.nom }}</option>
-                {% endfor %}
-            </select>
-        </form>
-    </section>
+{# category filter #}
+<section style="width:60%; margin:auto; margin-top: 50px; margin-bottom: 50px">
+    <form method="GET" action="{{ path('app_livre_index') }}" style="margin-bottom: 20px;">
+        <label for="categoryFilter">Choisir une catégorie :</label>
+        <select name="category" id="categoryFilter" onchange="this.form.submit()">
+            <option value="">Toutes les catégories</option>
+            {% for category in categories %}
+            <option value="{{ category.id }}" {% if category.id==app.request.get('category') %}selected{% endif %}>{{
+                category.nom }}</option>
+            {% endfor %}
+        </select>
+    </form>
+</section>
 
-    {# livre cards #}
-    <section style="width:60%; margin:auto; margin-top: 50px; margin-bottom: 50px">
-        {% for livre in livres %}
-            <div class="card mb-3" style="background-color: rgb(70, 58, 41); display:flex; flex-direction:column">
-                <h3 class="card-header">{{ livre.title }}</h3>
-                <div class="card-body">
-                    <h5 class="card-title">Auteur : {{ livre.auteur }}</h5>
-                    <h6 class="card-subtitle text-muted">{{ livre.category.nom }}</h6>
-                </div>
+{# livre cards #}
+{# livre cards #}
+<section
+    style="width:80%; margin:auto; margin-top: 50px; margin-bottom: 50px; display: flex; flex-wrap: wrap; gap: 20px; ">
+   
+    {% for livre in livres %}
+    <div class="card"
+        style="background-color: rgb(70, 58, 41); flex: 1 1 calc(30% - 20px); max-width: calc(30% - 20px); display: flex; flex-direction: column; border-radius: 10px; overflow: hidden;">
+        <h3 class="card-header" style="text-align: center; font-size: 1.2rem; color: white;">{{ livre.title }}</h3>
+        <div class="card-body" style="padding: 10px; text-align: center; color: white;">
+            <h5 class="card-title">Auteur : {{ livre.auteur }}</h5>
+            <h6 class="card-subtitle text-muted">{{ livre.category.nom }}</h6>
+        </div>
 
-                {% if livre.cover %}
-                    <img src="/uploads/{{ livre.cover }}" alt="{{ livre.title }}">
-                {% endif %}
-            </div>
-        {% endfor %}
-    </section>
+        {% if livre.cover %}
+        <img src="/uploads/{{ livre.cover }}" alt="{{ livre.title }}"
+            style="max-width: 100%; height: auto; max-height: 200px; object-fit: cover;">
+        {% endif %}
+    </div>
+    {% endfor %}
+    
+</section>
+
 {% endblock %}
