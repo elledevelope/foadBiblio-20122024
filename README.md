@@ -1,6 +1,8 @@
 # Last FOAD in 2024 - bibliothèque
 
-## Étapes :
+<img src="/public/demo/screenshot.png" alt="screenshot" width="300px" height="400px"  target="_blank"> 
+
+## Etapes :
 
 1. Copy repository `foadBiblio` from https://github.com/souhilaAtr/foadBiblio
 
@@ -69,3 +71,7 @@ parameters:
 2. Add filter by category in LivreController.php in ``/livres`` Route
 
 3. Create category filter form in `templates/home/index.html.twig`
+
+
+### Auteur : 
+*Elmira*
