@@ -1,6 +1,6 @@
 # Last FOAD in 2024 - bibliothèque
 
-<img src="/public/demo/screenshot.png" alt="screenshot" width="300px" height="400px"  target="_blank"> 
+<img src="/public/demo/screenshot.png" alt="screenshot" width="550px" height="400px"  target="_blank"> 
 
 ## Etapes :
 
