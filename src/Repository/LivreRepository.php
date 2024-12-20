@@ -40,4 +40,14 @@ class LivreRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function searchBy($champ, $value)
+    {
+        return $this->createQueryBuilder('l')
+        ->andWhere("l.$champ LIKE :val")
+        ->setParameter('val', "%$value%")
+        ->getQuery()
+        ->getResult()
+    ;
+    }
 }
