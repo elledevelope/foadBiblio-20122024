@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livre index{% endblock %}
+
+{% block body %}
+
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>titre</th>
+            <th>Auteur</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
+       
+        {% for livre in livres %}
+        {% if livre.user == app.user %}
+        <tr>
+        
+            <td>{{ livre.title }}</td>
+            <td>{{ livre.auteur }}</td>
+            <td>
+                <a href="{{ path('app_livre_show', {'id': livre.id}) }}">Afficher</a>
+                <a href="{{ path('app_livre_edit', {'id': livre.id}) }}">editer</a>
+            </td>
+        </tr>
+        {% endif %}
+       
+        {% else %}
+        <tr>
+            <td colspan="4">pas d'enregistrement</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}
