@@ -12,6 +12,7 @@
 
     {% block javascripts %}
     {% block importmap %}{{ importmap('app') }}{% endblock %}
+    <script src="{{ asset('js/search.js') }}" defer></script>
     {% endblock %}
 </head>
 
@@ -38,6 +39,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href={{path("app_livre_new")}}>Ajout Livre</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href={{path("app_search")}}>Rechercher un livre</a>
+                    </li>
                  
                     <li class="nav-item">
                         <a class="nav-link" href={{path("app_logout")}}>Deconnexion</a>
@@ -45,7 +50,7 @@
                     {% else %}
 
                     <li class="nav-item">
-                        <a class="nav-link" href={{path("app_login")}}>Connexion/inscription</a>
+                        <a class="nav-link" href={{path("app_login")}}>Connexion/Inscription</a>
                     </li>
                     {% endif %}
                 </ul>
