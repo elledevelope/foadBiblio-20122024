@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use \Gumlet\ImageResize;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[Route('/livre')]
 final class LivreController extends AbstractController
@@ -35,8 +37,28 @@ final class LivreController extends AbstractController
             $livre->setUser($user);
 
             $entityManager->persist($livre);
+
+            // Image upload
+            $file = $form['cover']->getData();
+            if ($file) {
+                $entityManager->flush();
+
+                $entityId = $livre->getId();
+                $newFilename = 'livre_' . $entityId . '.' . $file->guessExtension(); // add entity's id to file name
+
+                // Move uploaded file to 'upload_directory'
+                try {
+                    $file->move(
+                        $this->getParameter('upload_directory'),
+                        $newFilename
+                    );
+                    $livre->setCover($newFilename);
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Le téléchargement a échoué, veuillez réessayer.');
+                }
+            }
+
             $entityManager->flush();
-            
 
             return $this->redirectToRoute('app_livre_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -62,6 +84,25 @@ final class LivreController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Check if a new cover file was uploaded
+            $newImage = $form['cover']->getData();
+
+            if ($newImage instanceof UploadedFile) {                
+                $originalFilename = pathinfo($newImage->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $newImage->guessExtension();
+                
+                try {
+                    $newImage->move(
+                        $this->getParameter('upload_directory'),
+                        $newFilename
+                    );
+                    
+                    $livre->setCover($newFilename);
+                } catch (FileException $e) {  
+                    $this->addFlash('error', 'Le téléchargement a échoué, veuillez réessayer.');
+                }
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_livre_index', [], Response::HTTP_SEE_OTHER);
