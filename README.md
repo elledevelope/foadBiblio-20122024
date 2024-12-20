@@ -49,7 +49,7 @@ parameters:
     upload_directory: '%kernel.project_dir%/public/uploads'
 ```
 
-4. add `cover` property in ``Livre.php` entity :
+4. add `cover` property in `Livre.php` entity :
 `php bin/console make:entity`
 
 5. add `cover` field in ``src/Forms/LivreType.php`` 
