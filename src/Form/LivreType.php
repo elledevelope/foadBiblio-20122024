@@ -8,6 +8,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class LivreType extends AbstractType
 {
@@ -24,6 +26,23 @@ class LivreType extends AbstractType
                 'choice_label' => 'nom',
 
 
+            ])
+            ->add('cover', FileType::class, [
+                'mapped'=>false,
+                'label'=>'Fichier image',
+                'constraints' =>[
+                    new File([
+                        'maxSize' => '4096k',
+                        'mimeTypes' => [
+                            'image/jpg',
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp',
+                            'image/gif',
+                        ],
+                        'mimeTypesMessage' => "Ceci n'est pas une image valide"
+                    ])
+                ]
             ])
         ;
     }
