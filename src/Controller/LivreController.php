@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use \Gumlet\ImageResize;
 
 #[Route('/livre')]
 final class LivreController extends AbstractController
@@ -35,6 +36,7 @@ final class LivreController extends AbstractController
 
             $entityManager->persist($livre);
             $entityManager->flush();
+            
 
             return $this->redirectToRoute('app_livre_index', [], Response::HTTP_SEE_OTHER);
         }
