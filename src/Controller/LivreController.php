@@ -14,10 +14,36 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use \Gumlet\ImageResize;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/livre')]
 final class LivreController extends AbstractController
 {
+
+    // route SEARCH 
+    #[Route('/searchlivre', name: 'search_livre', methods: ['GET'])]
+    public function searchLivre(Request $request, LivreRepository $livreRepository): JsonResponse
+    {
+        $champ = $request->query->get('champ');
+        $valeur = $request->query->get('valeur');
+
+        if ($champ && $valeur) {
+            $result = $livreRepository->searchBy($champ, $valeur);
+
+            $resultArray = [];
+            foreach ($result as $livre) {
+                $resultArray[] = [
+                    'title' => $livre->getTitle(),
+                    'auteur' => $livre->getAuteur(),
+                ];
+            }
+
+            return new JsonResponse($resultArray);
+        }
+    }
+
+
+
     #[Route(name: 'app_livre_index', methods: ['GET'])]
     public function index(LivreRepository $livreRepository): Response
     {
