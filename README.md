@@ -48,6 +48,15 @@ parameters:
 
 6. add image upload logic in ``src/Controller/LivreController.php`` in `/new` Route and in `/edit` Route
 
+
 ### Book search :
 
-1. Created cards for books in `templates/home/index.html.twig`
+1. Create ``SearchController.php``
+
+2. Add ``public function searchBy()`` in ``LivreRepository.php``
+ 
+3. Add Route ``/searchlivre`` in ``LivreController.php``
+
+4. Create form for search and result display in `templates/search/index.html.twig`
+
+5. Create ``search.js`` for search url query and result display on btn click 'Rechercher'
