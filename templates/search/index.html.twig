@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Search Livre{% endblock %}
+
+{% block body %}
+
+
+<script> 
+    const url = "{{ path('search_livre') }}";  // URL for the search route
+</script>
+
+<form name="search" action="{{ path('search_livre') }}" method="GET" style="width:60%; margin:auto; margin-top: 50px">
+    <legend>Search Livre</legend>
+    <div>
+        <input class="form-label mt-4" type="text" name="valeur" placeholder="Que cherchez-vous ?" required>
+    </div>
+
+    <select name="champ" class="form-select">
+        <option value="title">Title</option>
+        <option value="auteur">Auteur</option>
+    </select>
+
+    <div>
+        <input class="btn btn-primary" type="submit" value="Rechercher" name="submit">
+    </div>
+</form>
+
+<!-- search results -->
+<div id="results"></div>
+
+{% endblock %}
