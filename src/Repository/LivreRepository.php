@@ -41,13 +41,29 @@ class LivreRepository extends ServiceEntityRepository
     //        ;
     //    }
 
+    // search
     public function searchBy($champ, $value)
     {
         return $this->createQueryBuilder('l')
-        ->andWhere("l.$champ LIKE :val")
-        ->setParameter('val', "%$value%")
-        ->getQuery()
-        ->getResult()
-    ;
+            ->andWhere("l.$champ LIKE :val")
+            ->setParameter('val', "%$value%")
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    // category filter 
+    public function findByCategory(?int $categoryId): array
+    {
+        $qb = $this->createQueryBuilder('l');
+
+        if ($categoryId) {
+            $qb->andWhere('l.category = :category')
+                ->setParameter('category', $categoryId);
+        }
+
+        $qb->orderBy('l.title', 'ASC');
+
+        return $qb->getQuery()->getResult();
     }
 }
