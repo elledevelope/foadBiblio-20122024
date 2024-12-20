@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Livre;
 use App\Form\LivreType;
+use App\Repository\CategoryRepository;
 use App\Repository\LivreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,14 +44,22 @@ final class LivreController extends AbstractController
     }
 
 
-
-    #[Route(name: 'app_livre_index', methods: ['GET'])]
-    public function index(LivreRepository $livreRepository): Response
+    // Filter by category
+    #[Route('/livres', name: 'app_livre_index', methods: ['GET'])]
+    public function index(Request $request, LivreRepository $livreRepository, CategoryRepository $categoryRepository): Response
     {
+        $categories = $categoryRepository->findAll();
+        $categoryId = $request->query->get('category');
+
+        // findByCategory 
+        $livres = $livreRepository->findByCategory($categoryId);
+
         return $this->render('livre/index.html.twig', [
-            'livres' => $livreRepository->findAll(),
+            'livres' => $livres,
+            'categories' => $categories,
         ]);
     }
+
 
     #[Route('/new', name: 'app_livre_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, UserInterface $user): Response
@@ -113,18 +122,18 @@ final class LivreController extends AbstractController
             // Check if a new cover file was uploaded
             $newImage = $form['cover']->getData();
 
-            if ($newImage instanceof UploadedFile) {                
+            if ($newImage instanceof UploadedFile) {
                 $originalFilename = pathinfo($newImage->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $originalFilename . '-' . uniqid() . '.' . $newImage->guessExtension();
-                
+
                 try {
                     $newImage->move(
                         $this->getParameter('upload_directory'),
                         $newFilename
                     );
-                    
+
                     $livre->setCover($newFilename);
-                } catch (FileException $e) {  
+                } catch (FileException $e) {
                     $this->addFlash('error', 'Le téléchargement a échoué, veuillez réessayer.');
                 }
             }
