@@ -28,6 +28,7 @@ class LivreFixtures extends Fixture
             $livre->setTitle($faker->sentence(3)) 
                   ->setAuteur($faker->name)       
                   ->setUser($faker->randomElement($users)) 
+                  ->setCover($faker->imageUrl())
                   ->setCategory($faker->randomElement($categories)); 
 
             $manager->persist($livre);
