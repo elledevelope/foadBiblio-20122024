@@ -2,7 +2,16 @@
 
 <img src="/public/demo/screenshot.png" alt="screenshot" width="550px" height="400px"  target="_blank"> 
 
-## Etapes :
+## Table of contents
+
+- [Etapes](#etapes)
+- [Image Upload](#image-upload)
+- [Book Search](#book-search)
+- [Category Filter](#category-filter)
+- [Author](#author)
+
+  
+## Etapes
 
 1. Copy repository `foadBiblio` from https://github.com/souhilaAtr/foadBiblio
 
@@ -22,10 +31,7 @@
 ``php bin/console doctrine:fixtures:load --append``
 
 
------------
- ## Première partie : Fonctionnalités initiales
-
-### Image upload :
+## Image Upload
 
 1. Modify ``php.ini``: 
 
@@ -49,9 +55,9 @@ parameters:
 5. add `cover` field in ``src/Forms/LivreType.php`` 
 
 6. add image upload logic in ``src/Controller/LivreController.php`` in `/new` Route and in `/edit` Route
+   
 
-
-### Book search :
+## Book Search
 
 1. Create ``SearchController.php``
 
@@ -62,9 +68,9 @@ parameters:
 4. Create form for search and result display in `templates/search/index.html.twig`
 
 5. Create ``search.js`` for search url query and result display on btn click 'Rechercher'
+   
 
-
-### Category filter :
+## Category Filter
 
 1. Add ``public function findByCategory()`` in ``LivreRepository.php``
 
@@ -73,5 +79,6 @@ parameters:
 3. Create category filter form in `templates/home/index.html.twig`
 
 
-### Auteur : 
+## Author
+
 *Elmira*
