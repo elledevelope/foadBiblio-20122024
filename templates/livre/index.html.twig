@@ -9,9 +9,10 @@
     <thead>
         <tr>
 
-            <th>titre</th>
+            <th>Titre</th>
             <th>Auteur</th>
-            <th>actions</th>
+            <th>Catégorie</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -22,9 +23,10 @@
         
             <td>{{ livre.title }}</td>
             <td>{{ livre.auteur }}</td>
+            <td>{{ livre.category }}</td>
             <td>
                 <a href="{{ path('app_livre_show', {'id': livre.id}) }}">Afficher</a>
-                <a href="{{ path('app_livre_edit', {'id': livre.id}) }}">editer</a>
+                <a href="{{ path('app_livre_edit', {'id': livre.id}) }}">Éditer</a>
             </td>
         </tr>
         {% endif %}
