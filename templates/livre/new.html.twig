@@ -3,9 +3,13 @@
 {% block title %}New Livre{% endblock %}
 
 {% block body %}
-    <h1>Ajoter un Livre</h1>
+
+<section style="width:60%; margin:auto; margin-top: 50px; margin-bottom: 50px">
+    <h1>Ajouter un Livre</h1>
 
     {{ include('livre/_form.html.twig') }}
 
-    <a href="{{ path('app_livre_index') }}">retour a la liste</a>
+    <a href="{{ path('app_livre_index') }}">Retour a la liste</a>
+
+</section>
 {% endblock %}
