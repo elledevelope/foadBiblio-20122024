@@ -60,3 +60,12 @@ parameters:
 4. Create form for search and result display in `templates/search/index.html.twig`
 
 5. Create ``search.js`` for search url query and result display on btn click 'Rechercher'
+
+
+### Category filter :
+
+1. Add ``public function findByCategory()`` in ``LivreRepository.php``
+
+2. Add filter by category in LivreController.php in ``/livres`` Route
+
+3. Create category filter form in `templates/home/index.html.twig`
